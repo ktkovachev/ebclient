@@ -1,3 +1,6 @@
 [submodule "lib/libmxml"]
 	path = lib/libmxml
 	url = git@github.com:ktkovachev/libmxml.git
+[submodule "lib/ebu"]
+	path = lib/ebu
+	url = git@github.com:ktkovachev/ebu.git
