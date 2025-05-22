@@ -28,7 +28,7 @@ void books_init(const char* rootpath);
 book_t* book_load(const char* path);
 void book_unload(book_t* book);
 char* convert_to_internal_encoding(EB_Book* book, char* s);
-JSON_Value* book_query(int index, int type, int max_hit, const char* s, const char* marker);
+JSON_Value* book_query(int index, int type, int max_hit, char* s, const char* marker);
 JSON_Value* book_get(int index, int page, int offset);
 JSON_Value* book_menu(int index);
 JSON_Value* book_text(int index);

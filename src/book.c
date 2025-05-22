@@ -767,7 +767,7 @@ JSON_Value* book_copyright(int index) {
 // 1 suffix
 // 2 exactly
 
-JSON_Value* book_query(int index, int type, int max_hit, const char* s, const char* marker) {
+JSON_Value* book_query(int index, int type, int max_hit, char* s, const char* marker) {
   EB_Book* book = select_book(index);
   if( book == NULL ) {
     return NULL;
