@@ -4,7 +4,7 @@ OBJS = $(patsubst %.c,%.o,$(patsubst %.cpp,%.o,$(SRC)))
 CC = gcc
 CPP = g++
 INCLUDE =  -I. 
-LINKPARAM = -static -pthread -L. /usr/local/lib/libebu.a /usr/local/lib/libmxml.a /usr/lib/x86_64-linux-gnu/libz.a
+LINKPARAM = -static -pthread -L. -lebu -lmxml -lz
 #LINKPARAM =  -pthread -L. -lebu -lmxml
 CFLAGS = -fPIC
 
@@ -15,7 +15,7 @@ CFLAGS = -fPIC
 	$(CPP) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 $(TARGET):$(OBJS)
-	libtool --mode=link $(CPP) -o $(TARGET) $(LINKPARAM) $(OBJS)
+	libtool --mode=link --tag CXX $(CPP) -o $(TARGET) $(LINKPARAM) $(OBJS)
 
 clean:
 	rm $(OBJS) $(TARGET)
