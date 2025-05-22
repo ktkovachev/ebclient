@@ -11,7 +11,7 @@
 #define MAXLEN_HEADING 255
 #define MAXLEN_TEXT 65535
 
-typedef struct book_node {
+typedef struct book_node_t {
   book_t* book;
   char* title;
   int subbook_index;
@@ -167,7 +167,7 @@ EB_Error_Code narrow_character_text(EB_Book *book, EB_Appendix *appendix, void *
     sprintf(xpath, "%04X", argv[0]);
     mxml_node_t *node = mxmlFindElement(current_bookw->gaijimap_tree, current_bookw->gaijimap_tree, "gaijiMap", "ebcode", xpath, MXML_DESCEND);
     if( node != NULL ) {
-      char *unicode = mxmlElementGetAttr(node, "unicode"); // "#x60FD" format
+      const char *unicode = mxmlElementGetAttr(node, "unicode"); // "#x60FD" format
       sscanf(unicode,"#x%2x%2x", utf16bec, utf16bec+1);
       eb_write_text_string(book, conv_utf16be_str(utf16bec, sizeof(utf16bec)));
       return EB_SUCCESS;
@@ -185,7 +185,7 @@ EB_Error_Code wide_character_text(EB_Book *book, EB_Appendix *appendix, void *co
     sprintf(xpath, "%04X", argv[0]);
     mxml_node_t *node = mxmlFindElement(current_bookw->gaijimap_tree, current_bookw->gaijimap_tree, "gaijiMap", "ebcode", xpath, MXML_DESCEND);
     if( node != NULL ) {
-      char *unicode = mxmlElementGetAttr(node, "unicode"); // "#x60FD" format
+      const char *unicode = mxmlElementGetAttr(node, "unicode"); // "#x60FD" format
       sscanf(unicode,"#x%2x%2x", utf16bec, utf16bec+1);
       eb_write_text_string(book, conv_utf16be_str(utf16bec, sizeof(utf16bec)));
       return EB_SUCCESS;
@@ -406,7 +406,7 @@ book_t* book_load(const char* path) {
     fprintf(stderr, "failed to bind the book, %s: %s\n", eb_error_message(error_code), path);
     goto die;
   }
-  error_code = eb_subbook_list(book, bookw->subbook_list, &bookw->subbook_count);
+  error_code = eb_subbook_list(book, bookw->subbook_list, (int*)&(bookw->subbook_count));
   if (error_code != EB_SUCCESS) {
       fprintf(stderr, "failed to get the subbbook list, %s\n", eb_error_message(error_code));
       goto die;
@@ -708,7 +708,7 @@ JSON_Value* book_text(int index) {
   }
 
   EB_Position position;
-  EB_Error_Code error_code = eb_text(&book, &position);
+  EB_Error_Code error_code = eb_text(/*&*/book, &position);
   if (error_code == EB_SUCCESS) {
     JSON_Value *root_value = json_value_init_array();
     JSON_Array *root_array = json_value_get_array(root_value);
@@ -728,7 +728,7 @@ JSON_Value* book_menu(int index) {
   }
 
   EB_Position position;
-  EB_Error_Code error_code = eb_menu(&book, &position);
+  EB_Error_Code error_code = eb_menu(/*&*/book, &position);
   if (error_code == EB_SUCCESS) {
     // printf("eb_menu result %d %d %d\n", error_code, position.page, position.offset);
     JSON_Value *root_value = json_value_init_array();
@@ -749,7 +749,7 @@ JSON_Value* book_copyright(int index) {
   }
 
   EB_Position position;
-  EB_Error_Code error_code = eb_copyright(&book, &position);
+  EB_Error_Code error_code = eb_copyright(/*&*/book, &position);
   if (error_code == EB_SUCCESS) {
     JSON_Value *root_value = json_value_init_array();
     JSON_Array *root_array = json_value_get_array(root_value);

@@ -8,6 +8,8 @@
 #include <ebu/error.h>
 #include <ebu/text.h>
 #include <ebu/font.h>
+#include <ebu/appendix.h>
+#include <ebu/binary.h>
 
 #include "parson.h"
 
