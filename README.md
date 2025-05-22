@@ -13,8 +13,10 @@ It accepts queries from stdin and outputs results to stdout. It's used as the ba
 
 ## Build
 
-Install build tools (`apt-get install build-essential libtool-bin`) and run `make` in src/ dir.
-The dependencies must be compiled priorly and put to corresponding locations which are referenced in Makefile.
+Install build tools (`apt-get install build-essential libtool-bin`), and then compile and install the dependencies (ebu, mxml, and zlib).
+`build_deps.sh` can be executed for your convenience to do this part automatically.
+Then, run `make` in src/ dir.
+If not using a system with `apt`, then you may have to install zlib separately, but just ensure it is available as a static library on your system libary path.
 
 ## Usage
 
