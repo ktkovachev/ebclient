@@ -776,15 +776,16 @@ JSON_Value* book_query(int index, int type, int max_hit, char* s, const char* ma
   int i,j;
   EB_Error_Code error_code;
 
+  char* internal_encoded = convert_to_internal_encoding(book, s);
   switch(type) {
     case 1:
-      error_code = eb_search_endword(book, convert_to_internal_encoding(book, s));
+      error_code = eb_search_endword(book, internal_encoded);
     break;
     case 2:
-      error_code = eb_search_exactword(book, convert_to_internal_encoding(book, s));
+      error_code = eb_search_exactword(book, internal_encoded);
     break;
     default:
-      error_code = eb_search_word(book, convert_to_internal_encoding(book, s));
+      error_code = eb_search_word(book, internal_encoded);
   }
 
   if (error_code != EB_SUCCESS) {
