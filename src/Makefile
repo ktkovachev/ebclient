@@ -5,7 +5,6 @@ CC = gcc
 CPP = g++
 INCLUDE =  -I. 
 LINKPARAM = -static -pthread -L. -lebu -lmxml -lz
-#LINKPARAM =  -pthread -L. -lebu -lmxml
 CFLAGS = -fPIC
 
 %.o: %.c
